@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRAN THANH GIAU — Chợ tài nguyên số cho nhà sáng tạo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<header class="navbar">
+  <div class="nav-inner">
+    <div class="brand"><span class="brand-dot"></span> TRAN THANH GIAU</div>
+    <ul class="nav-links">
+      <li><button data-cat="all" class="cat-nav-btn active">Cửa hàng</button></li>
+      <li><button id="nav-library-link">Kho của tôi</button></li>
+    </ul>
+    <div class="nav-right">
+      <div class="token-chip" id="token-chip">
+        <span class="tk-icon"></span> <strong id="token-balance">0</strong> token
+      </div>
+      <button class="icon-btn hidden" id="admin-btn" title="Bảng điều khiển Admin">⚙</button>
+      <button class="btn btn-ghost btn-sm" id="login-nav-btn">Đăng nhập</button>
+      <button class="btn btn-primary btn-sm hidden" id="logout-nav-btn">Đăng xuất</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="hero-eyebrow">Canva · PowerPoint · Alight Motion · Mã nguồn HTML</p>
+      <h1>Tài nguyên số chất lượng, giao ngay sau <span class="cy">một cú click</span></h1>
+      <p class="lead">Mua mẫu Canva, slide thuyết trình, preset dựng video và source code website — thanh toán bằng token, nhận liên kết tải về tức thì, không chờ đợi.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" id="hero-explore-btn">Khám phá sản phẩm</button>
+        <button class="btn btn-ghost" id="hero-recharge-btn">Nạp token</button>
+      </div>
+    </div>
+    <div class="hero-stack" aria-hidden="true">
+      <div class="float-card fc-1"><span class="tag">CANVA</span><h4>Bộ Story IG Pastel</h4><p>24 mẫu · 18 token</p></div>
+      <div class="float-card fc-2"><span class="tag">POWERPOINT</span><h4>Pitch Deck Khởi Nghiệp</h4><p>20 slide · 40 token</p></div>
+      <div class="float-card fc-3"><span class="tag">HTML CODE</span><h4>Landing Page SaaS</h4><p>Source đầy đủ · 60 token</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRODUCT SECTION ============ -->
+<section class="section wrap" id="shop-section">
+  <div class="section-head">
+    <div>
+      <h2>Toàn bộ sản phẩm</h2>
+      <p>Lọc theo danh mục hoặc tìm theo tên sản phẩm</p>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-chip active" data-cat="all">Tất cả</button>
+    <button class="filter-chip" data-cat="canva">Mẫu Canva</button>
+    <button class="filter-chip" data-cat="powerpoint">Slide PowerPoint</button>
+    <button class="filter-chip" data-cat="alight_motion">Preset Alight Motion</button>
+    <button class="filter-chip" data-cat="html_code">Mã nguồn HTML</button>
+    <div class="search-box">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="search-input" placeholder="Tìm sản phẩm...">
+    </div>
+  </div>
+
+  <div class="grid" id="product-grid">
+    <div class="empty-state">Đang tải sản phẩm...</div>
+  </div>
+</section>
+
+<footer class="site-footer wrap">
+  <div>© 2026 <span>TRAN THANH GIAU</span>. Mọi tài nguyên đều được bảo vệ bản quyền người bán.</div>
+</footer>
+
+<!-- ============ MODAL: AUTH ============ -->
+<div class="modal-overlay hidden" id="auth-modal">
+  <div class="modal">
+    <button class="modal-close" data-close="auth-modal">&times;</button>
+
+    <div id="login-view">
+      <h2>Đăng nhập</h2>
+      <div class="alert alert-error hidden" id="login-error"></div>
+      <div class="form-group">
+        <label>Email hoặc Username</label>
+        <input type="text" id="login-identifier" placeholder="ban@email.com">
+      </div>
+      <div class="form-group">
+        <label>Mật khẩu</label>
+        <input type="password" id="login-password" placeholder="••••••••">
+      </div>
+      <button class="btn btn-primary btn-block" id="login-submit-btn">Đăng nhập</button>
+      <p class="switch-link">Chưa có tài khoản? <button id="go-register-btn">Đăng ký ngay</button></p>
+    </div>
+
+    <div id="register-view" class="hidden">
+      <h2>Tạo tài khoản mới</h2>
+      <div class="alert alert-error hidden" id="register-error"></div>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="register-username" placeholder="VD: minhanh99">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="register-email" placeholder="ban@email.com">
+      </div>
+      <div class="form-group">
+        <label>Mật khẩu</label>
+        <input type="password" id="register-password" placeholder="Tối thiểu 6 ký tự">
+      </div>
+      <button class="btn btn-primary btn-block" id="register-submit-btn">Đăng ký</button>
+      <p class="switch-link">Đã có tài khoản? <button id="go-login-btn">Đăng nhập</button></p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: RECHARGE ============ -->
+<div class="modal-overlay hidden" id="recharge-modal">
+  <div class="modal">
+    <button class="modal-close" data-close="recharge-modal">&times;</button>
+    <h2>Nạp Token</h2>
+    <p style="color:var(--muted); font-size:.88rem;">Chuyển khoản ngân hàng với nội dung chứa đúng mã bên dưới. Hệ thống tự động cộng token qua webhook trong vài giây.</p>
+    <div class="form-group">
+      <label>Mã nạp tiền của bạn</label>
+      <input type="text" id="recharge-code" readonly style="font-family:var(--font-display); color:var(--neon-cyan); font-weight:600;">
+    </div>
+    <div class="form-group">
+      <label>Tỉ giá quy đổi</label>
+      <input type="text" readonly value="1.000 VNĐ = 1 Token">
+    </div>
+    <p style="font-size:.8rem; color:var(--muted);">Ví dụ nội dung chuyển khoản: <strong id="recharge-example" style="color:var(--text);"></strong></p>
+  </div>
+</div>
+
+<!-- ============ MODAL: PRODUCT DETAIL ============ -->
+<div class="modal-overlay hidden" id="product-modal">
+  <div class="modal modal-wide">
+    <button class="modal-close" data-close="product-modal">&times;</button>
+    <div id="product-detail-content">Đang tải...</div>
+  </div>
+</div>
+
+<!-- ============ MODAL: LIBRARY (Kho cá nhân) ============ -->
+<div class="modal-overlay hidden" id="library-modal">
+  <div class="modal modal-wide">
+    <button class="modal-close" data-close="library-modal">&times;</button>
+    <h2>Kho lưu trữ cá nhân</h2>
+    <div id="library-content">Đang tải...</div>
+  </div>
+</div>
+
+<!-- ============ MODAL: ADMIN PANEL ============ -->
+<div class="modal-overlay hidden" id="admin-modal">
+  <div class="modal modal-wide">
+    <button class="modal-close" data-close="admin-modal">&times;</button>
+    <h2>Bảng điều khiển Quản trị</h2>
+
+    <div class="admin-tabs">
+      <button class="active" data-tab="post">Đăng sản phẩm</button>
+      <button data-tab="analytics">Thống kê</button>
+      <button data-tab="products">Sản phẩm</button>
+      <button data-tab="transactions">Giao dịch</button>
+      <button data-tab="users">Người dùng</button>
+      <button data-tab="music">Nhạc nền</button>
+      <button data-tab="account">Tài khoản</button>
+    </div>
+
+    <div class="admin-panel-section active" id="admin-tab-post">
+      <h3 style="margin-top:0">Đăng sản phẩm thủ công</h3>
+      <p style="color:var(--muted); font-size:.85rem; margin-top:0;">
+        Tải ảnh lên, nhập nội dung và dán link tài nguyên là xong. Không cần AI.
+      </p>
+      <div class="form-group"><label>Tên sản phẩm *</label>
+        <input type="text" id="pp-title" maxlength="150" placeholder="VD: Bộ 24 mẫu Story Instagram tông pastel"></div>
+      <div class="form-group"><label>Danh mục *</label>
+        <select id="pp-category">
+          <option value="canva">Mẫu Canva</option>
+          <option value="powerpoint">Slide PowerPoint</option>
+          <option value="alight_motion">Preset Alight Motion</option>
+          <option value="html_code">Mã nguồn HTML</option>
+        </select></div>
+      <div class="form-group"><label>Nội dung mô tả</label>
+        <textarea id="pp-desc" placeholder="Giới thiệu sản phẩm, đối tượng dùng, cách sử dụng..."></textarea></div>
+      <div class="form-group"><label>Điểm nổi bật (mỗi dòng 1 ý, không bắt buộc)</label>
+        <textarea id="pp-features" placeholder="24 mẫu chỉnh sửa được&#10;Dùng được trên Canva miễn phí"></textarea></div>
+      <div class="form-group"><label>Ảnh minh hoạ (chọn nhiều ảnh, tối đa 8, mỗi ảnh ≤ 5MB)</label>
+        <input type="file" id="pp-images" accept="image/png,image/jpeg,image/webp,image/gif" multiple>
+        <div id="pp-previews" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"></div></div>
+      <div class="form-group"><label>Link tài nguyên * (mỗi dòng 1 link = 1 lượt bán)</label>
+        <textarea id="pp-links" placeholder="https://drive.google.com/...&#10;https://www.canva.com/..."></textarea></div>
+      <div class="form-group"><label>Số lượng bán (chỉ dùng khi chỉ có 1 link: link đó được bán N lần)</label>
+        <input type="number" id="pp-qty" min="1" max="1000" value="1"></div>
+      <div class="form-group"><label>Link xem thử / demo (không bắt buộc)</label>
+        <input type="text" id="pp-demo" placeholder="https://..."></div>
+      <div class="form-group"><label>Giá (token) *</label><input type="number" id="pp-price" min="0" value="20"></div>
+      <button class="btn btn-primary" id="pp-btn">Đăng bán</button>
+      <div class="alert hidden" id="pp-status" style="margin-top:12px"></div>
+    </div>
+
+    <div class="admin-panel-section" id="admin-tab-analytics">
+      <p style="color:var(--muted); font-size:.85rem; margin-top:0;">
+        Số liệu thật từ hệ thống (doanh thu, top sản phẩm...). Nút bên dưới là tính năng tuỳ chọn, cần cấu hình GEMINI_API_KEY; không bật cũng không ảnh hưởng cửa hàng.
+      </p>
+      <button class="btn btn-primary btn-sm" id="run-analysis-btn">Phân tích bằng AI (tuỳ chọn)</button>
+
+      <div id="analytics-stats" style="margin-top:18px;"></div>
+      <div id="analytics-insights"></div>
+    </div>
+
+    <div class="admin-panel-section" id="admin-tab-products">
+      <div id="admin-products-list">Đang tải...</div>
+    </div>
+
+    <div class="admin-panel-section" id="admin-tab-transactions">
+      <div id="admin-transactions-list">Đang tải...</div>
+    </div>
+
+    <div class="admin-panel-section" id="admin-tab-users">
+      <div id="admin-users-list">Đang tải...</div>
+    </div>
+
+    <div class="admin-panel-section" id="admin-tab-music">
+      <h3 style="margin-top:0">Nhạc nền (link Catbox)</h3>
+      <p style="color:var(--muted); font-size:.85rem; margin-top:0;">
+        Dán link file nhạc từ catbox.moe. Mỗi dòng 1 bài, dạng <code>Tên bài | https://files.catbox.moe/abc123.mp3</code>
+        hoặc chỉ dán link. Khi khách vào web, hệ thống tự phát ngẫu nhiên 1 bài.
+      </p>
+      <div class="form-group"><textarea id="music-input" rows="5" placeholder="Bài 1 | https://files.catbox.moe/abc123.mp3&#10;https://files.catbox.moe/xyz789.mp3"></textarea></div>
+      <button class="btn btn-primary" id="music-add-btn">Thêm nhạc</button>
+      <div id="admin-music-list" style="margin-top:16px"></div>
+    </div>
+
+    <div class="admin-panel-section" id="admin-tab-account">
+      <h3 style="margin-top:0">Đổi mật khẩu admin</h3>
+      <div class="form-group"><label>Mật khẩu hiện tại</label><input type="password" id="pw-old"></div>
+      <div class="form-group"><label>Mật khẩu mới (tối thiểu 6 ký tự)</label><input type="password" id="pw-new"></div>
+      <button class="btn btn-primary" id="pw-btn">Đổi mật khẩu</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CHAT WIDGET ============ -->
+<button class="chat-fab" id="chat-fab" title="Hỗ trợ trực tuyến">💬</button>
+<div class="chat-window hidden" id="chat-window">
+  <div class="chat-head">Hỗ trợ trực tuyến</div>
+  <div class="chat-body" id="chat-body">
+    <div class="chat-msg them">Xin chào! TRAN THANH GIAU có thể giúp gì cho bạn?</div>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="chat-input" placeholder="Nhập tin nhắn...">
+    <button id="chat-send-btn">Gửi</button>
+  </div>
+</div>
+
+<!-- ============ MUSIC PLAYER ============ -->
+<div class="music-player hidden" id="music-player">
+  <div class="eq" id="music-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="music-info">
+    <span class="music-label">Nhạc ngẫu nhiên</span>
+    <span class="music-title" id="music-title">—</span>
+  </div>
+  <button type="button" id="music-toggle" title="Phát / Tạm dừng" aria-label="Phát hoặc tạm dừng">▶</button>
+  <button type="button" id="music-next" title="Bài ngẫu nhiên khác" aria-label="Bài khác">⏭</button>
+  <input type="range" id="music-volume" min="0" max="100" value="50" title="Âm lượng" aria-label="Âm lượng">
+  <audio id="music-audio" preload="auto"></audio>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
